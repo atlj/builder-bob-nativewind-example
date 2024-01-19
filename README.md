@@ -1,31 +1,46 @@
-# react-native-nativewind-example
+## How to install this library?
 
-An example library that uses nativewind
+### 1. Install the dependencies
 
-## Installation
-
-```sh
-npm install react-native-nativewind-example
+```bash
+yarn add nativewind # install nativewind
+yarn add --dev tailwindcss@3.2.2 # Install tailwind css v3.2.2 https://stackoverflow.com/questions/76688256/getting-error-use-processcss-thencb-to-work-with-async-plugins
+yarn add react-native-nativewind-example # Install the library
 ```
 
-## Usage
+### 2. Babel config
+
+Go to `babel.config.js` and add the following:
+
+```diff
+// babel.config.js
+module.exports = function (api) {
+  api.cache(true);
+  return {
+    presets: ["babel-preset-expo"],
++   plugins: ["nativewind/babel"],
+  };
+};
+```
+
+### 3. Tailwind config
+
+Add a `tailwind.config.js` file to the root of your project and add the following:
 
 ```js
-import { multiply } from 'react-native-nativewind-example';
+const libraryPath = require.resolve('react-native-nativewind-example/package.json');
 
-// ...
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    // App's own components
+    './src/**/*.{js,jsx,ts,tsx}',
+    `${libraryPath}/src/**/*.{js,jsx,ts,tsx}`,
+  ],
 
-const result = await multiply(3, 7);
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+};
 ```
-
-## Contributing
-
-See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.
-
-## License
-
-MIT
-
----
-
-Made with [create-react-native-library](https://github.com/callstack/react-native-builder-bob)
