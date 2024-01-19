@@ -1,18 +1,17 @@
 import * as React from 'react';
 
-import { StyleSheet, View, Text } from 'react-native';
-import { multiply } from 'react-native-nativewind-example';
+import { StyleSheet, View } from 'react-native';
+import { MyCustomButton } from 'react-native-nativewind-example';
 
 export default function App() {
-  const [result, setResult] = React.useState<number | undefined>();
-
-  React.useEffect(() => {
-    multiply(3, 7).then(setResult);
-  }, []);
-
   return (
     <View style={styles.container}>
-      <Text>Result: {result}</Text>
+      <MyCustomButton
+        label="Hi mom!"
+        onPress={() => {
+          console.log('Hi mom!');
+        }}
+      />
     </View>
   );
 }
